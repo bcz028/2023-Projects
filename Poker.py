@@ -93,7 +93,7 @@ class poker:
     ###
     ###
     def Royal_Flush(self):
-        print("hello")
+        pass
     def Straight_Flush(self):
         pass
     def Four_of_a_Kind(self):# need to edit to display high card, need to hit a test case that checks if this funtion is running properly
