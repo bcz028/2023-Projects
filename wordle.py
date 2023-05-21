@@ -1,4 +1,5 @@
-def wordle(guess,word):#does not check is the guess, or word, is an actual word
+def wordle(word):
+    guess=input("What word do you think it is?")
     count=0
     if len(guess)!=len(word):
         return "Guess is not the correct length"
@@ -18,17 +19,18 @@ def wordle(guess,word):#does not check is the guess, or word, is an actual word
             word_freq[guess[index]]-=1
             count+=1
             final_progress+=str(guess[index]) + " "
-            correct_placement+=[str(guess[index])+ " " + "is in the correct place"]
+            correct_placement+=[str(guess[index])]
         elif guess[index] in word_freq and word_freq[guess[index]]>0:
             possible_repeats+=[guess[index]]
             final_progress+="_ "
-            wrong_placement+=[str(guess[index])+ " " + "is in the wrong place"]
+            wrong_placement+=[str(guess[index])]
         else:
             final_progress+="_ "
             if guess[index] not in guess[:index]:#accounts for repeated letters not in word
-                wrong_letter+=[str(guess[index])+ " " + "is not in the word"]
+                wrong_letter+=[str(guess[index])]
     if count==5:
-        return(word + " " + "is correct: You win!")
+        print(word + " " + "is correct: You win!")
+        return
     print("Letters in the correct place:")
     for message in correct_placement:
         print(message)
@@ -46,22 +48,12 @@ def wordle(guess,word):#does not check is the guess, or word, is an actual word
         print(message)
     if len(wrong_letter)==0:
         print("None")
-    return "\nTry Again!"
-    
-#implement new function to track prevoiusly guessed words
+    return wordle(word)
 
-###
-###
-#invokation
-guess="truce"   #put new guess in between quotes
-###
-###
-###
-secret_word="heard"     #put new secret word in between quotes
-###
-###
-###
-print(wordle(guess,secret_word))
+
+word=input("What is the secret word?")
+print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDo not scroll above this")
+wordle(word)
 
 
 
