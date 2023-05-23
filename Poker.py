@@ -13,7 +13,9 @@ class poker:
         self.total_players_with_four_of_a_kind=0
         self.total_players_with_straight_flush=0
         self.total_players_with_royal_flush=0
-    def two_card_hands(self,num_of_players):
+        self.players=[]
+        self.play=0
+    def player_1_hand(self,num_of_players):
         player_number=0
         if num_of_players>22:
             print("Too many players")
@@ -35,8 +37,8 @@ class poker:
                 if self.Cards[card2]>0:
                     self.Cards[card2]-=1
                     self.player_hands["Player" + str(player_number)+"'s hand"]+=[card2]
-            for i in self.player_hands:
-                print(i, ":", self.player_hands[i])
+            print("Your hand:")
+            print(self.player_hands["Player1's hand"])
             return
     def flop_board(self):
         discarded_cards=random.choice(list(self.Cards.keys()))
@@ -349,11 +351,32 @@ class poker:
                     print("Player"+ str(player_num+1)+ " " + "has a high card of" + " " + str(sorted_lst[len(sorted_lst)-1]))
     def probability(self):#calclates each players chance of winning pre-flop, flop, turn, and river
         pass
+    def players_playing(self, Number_of_Players):
+        for i in range(Number_of_Players):
+            self.players+=["Player"+ " " + str(i+1)]
+    def choice(self):
+        if self.play==0:
+            decision=input("It's your turn, do you check, raise, call, or fold? ")
+            if decision=="fold":
+                self.play=1
+                self.players=self.players[1:]
+            elif decision=="raise":
+                input("How much do you raise by? ")
 
-
-
-
-Number_of_Players=4 #Type in number of players
+    def message(self):
+        string=""
+        for i in self.players:
+            string+=str(i)
+            string+=", "  
+        string+=" are still playing"
+        print(string)
+    def two_card_hands(self):
+        for i in self.player_hands:
+                print(i, ":", self.player_hands[i])
+        return
+    def other_players_choices(self):
+        pass 
+Number_of_Players=5 #Type in number of players
 
 
 ###
@@ -362,13 +385,26 @@ Number_of_Players=4 #Type in number of players
 #invocation
 print(str(Number_of_Players)+" " + "players are at the table\n\n")
 poker=poker()
-poker.two_card_hands(Number_of_Players)
+buy_in="$20.00" # change buy in here
+print("You have: " + buy_in)
+poker.player_1_hand(Number_of_Players)
+poker.players_playing(Number_of_Players)
+small_blind="$0.25" # change small blind amount here
+print("Small Blind is: "  + small_blind)
+poker.choice()
+poker.message()
 print("\nFlop:")
 poker.flop_board()
+poker.choice()
+poker.message()
 print("\nTurn")
 poker.turn()
+poker.choice()
+poker.message()
 print("\nRiver:")
 poker.river()
+poker.choice()
+poker.message()
 print("\nPlayers Hands:")
 poker.Four_of_a_Kind()
 poker.Full_House()
@@ -377,6 +413,7 @@ poker.Straight()
 poker.Trips_checker()
 poker.Pair_and_TwoPair_Checker()
 poker.High_Card_checker()
+poker.two_card_hands()
 #end invocation
 ###
 ###
